@@ -145,6 +145,26 @@ class TaskController extends Controller
         }
     }
 
+    public function setTaskCompleted(Request $request, $id){
+        try{
+            $item = Task::findOrFail($id);
+            $item->update([
+                "status" => "completed"
+            ]);
+            return response()->json([
+                "success" => true,
+                "message" => "Task Updated Successfully!",
+                "data" => $item
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                "success" => false,
+                "message" => "Task not found",
+                "data" => null
+            ], 404);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      * @param $id

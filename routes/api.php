@@ -12,4 +12,5 @@ Route::prefix("auth")->group(function (){
 
 Route::middleware("auth:sanctum")->group(function (){
     Route::resource("tasks", TaskController::class);
+    Route::put("tasks/{id}/mark-completed",[TaskController::class,'setTaskCompleted'])->name("tasks.set_completed");
 });
