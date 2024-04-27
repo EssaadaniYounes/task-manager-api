@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\tasks\StoreTaskRequest;
 use App\Http\Requests\tasks\UpdateTaskRequest;
+use App\Http\Resources\tasks\TasksList;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +30,7 @@ class TaskController extends Controller
         if($statusFilter){
             $tasks->where("status", $statusFilter);
         }
-        return response()->json($tasks->get());
+        return response()->json(TasksList::collection($tasks->get()));
     }
 
     /**
