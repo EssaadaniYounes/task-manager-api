@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text("description")->nullable();
             $table->date("due_date")->nullable();
             $table->string("status")->nullable()->default('pending');
-            //Assuring that the tasks will be deleted when the user account deleted
+            //Assuming that the tasks will be deleted when the user account deleted
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });

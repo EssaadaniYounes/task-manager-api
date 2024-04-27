@@ -1,7 +1,7 @@
 <?php
 namespace App\Enums;
 
-enum RoleEnum: string
+enum TaskStatusEnum: string
 {
 case PENDING = "pending";
 case IN_PROGRESS = "in progress";
