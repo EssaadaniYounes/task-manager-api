@@ -54,4 +54,5 @@ php artisan serve
 -   `POST :/tasks` Create task for the authenticated user
 -   `GET :/tasks/:id` Get task details
 -   `PUT :/tasks/:id` Update the task
+-   `PUT :/tasks/:id/mark-completed` Set task status to completed
 -   `DELETE :/tasks/:id` Delete a task by a given Id
