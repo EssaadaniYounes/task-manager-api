@@ -120,6 +120,13 @@ class TaskController extends Controller
     {
         try {
             $item = Task::findOrFail($id);
+            if($item->created_by != auth()->user()->id){
+                return response()->json([
+                    "success" => false,
+                    "message" => "Cannot update the task it's not yours",
+                    "data" => null
+                ], 403);
+            }
             $updated = $item->update($request->validated());
 
             if(!$updated){
@@ -148,6 +155,13 @@ class TaskController extends Controller
     public function setTaskCompleted(Request $request, $id){
         try{
             $item = Task::findOrFail($id);
+            if($item->created_by != auth()->user()->id){
+                return response()->json([
+                    "success" => false,
+                    "message" => "Cannot mark task as completed it's not yours",
+                    "data" => null
+                ], 403);
+            }
             $item->update([
                 "status" => "completed"
             ]);
@@ -173,6 +187,13 @@ class TaskController extends Controller
     {
         try {
             $item = Task::findOrFail($id);
+            if($item->created_by != auth()->user()->id){
+                return response()->json([
+                    "success" => false,
+                    "message" => "Cannot delete the task is not yours",
+                    "data" => null
+                ], 403);
+            }
             if($item->delete()){
                 return response()->json([
                     "success" => true,

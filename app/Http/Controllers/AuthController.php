@@ -12,16 +12,22 @@ class AuthController
 {
     public function Register(RegisterRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
-        $user = User::create($data);
-        $responseData['data'] = [
-            "name" => $user->name,
-            "auth_token" => $user->createToken('TaskManager')->plainTextToken
-        ];
-        $responseData["success"] = true;
-        $responseData["message"] = "Account Created Successfully!";
-        return response()->json($responseData, 201);
+       try{
+           $data = $request->validated();
+           $data['password'] = bcrypt($data['password']);
+           $user = User::create($data);
+           $responseData['data'] = [
+               "name" => $user->name,
+               "auth_token" => $user->createToken('TaskManager')->plainTextToken
+           ];
+           $responseData["success"] = true;
+           $responseData["message"] = "Account Created Successfully!";
+           return response()->json($responseData, 201);
+       }catch (\Exception $e){
+           return response()->json([
+               "message"=>"Account couldn't be registered"
+           ], 401);
+       }
     }
 
     public function Login(LoginRequest $request)
@@ -40,12 +46,12 @@ class AuthController
                 return response()->json($responseData, 200);
             }
             return response()->json([
-                "message"=>"Unauthorized"
+                "message"=>"Invalid Credentials"
             ], 401);
 
         } else {
             return response()->json([
-                "message"=>"Unauthorized"
+                "message"=>"Invalid Credentials"
             ], 401);
         }
     }
