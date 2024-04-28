@@ -1,6 +1,6 @@
 # Task Manager API
 
-## Requirements (If you don't have docker)
+## Requirements
 
 `Php ^8.2 Installed Locally`
 
